@@ -2,7 +2,7 @@ M. Bogdan, E. van den Berg, W. Su, and E.J. Candes
 
 October 6, 2013
 
-1. Introduction
+#### 1. Introduction
 ---------------
 
 This directory contains a Matlab and an R implementation for the
@@ -21,7 +21,7 @@ lambda is a scalar, the above formulation reduces to the Lasso:
        b
 ```
 
-2. Compiling
+#### 2. Compiling
 ------------
 
 In order to use the Matlab version of the solver (Adlas.m), it
@@ -40,7 +40,7 @@ This should generate the cproxSortedL1.so file needed by the
 solver.
 
 
-3. Example script
+#### 3. Example script
 -----------------
 
 The scripts testAdlas.m and testAdlas.R load a matrix A and

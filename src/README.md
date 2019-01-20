@@ -7,16 +7,18 @@ October 6, 2013
 This directory contains a Matlab and an R implementation for the
 SLOPE formulation
 
+```
   Minimize   1/2*||Ax-b||_2^2 + sum_i (lambda_i * |x|_[i])  (SL1)
-       b
-
+     b
+```
 where |x|_[i] denotes the i-th largest entry in |x|. The entries
 in lambda must be nonnegative and in non-increasing order. When
 lambda is a scalar, the above formulation reduces to the Lasso:
 
+```
    Minimize 1/2*||Ax-b||_2^2 + lambda * ||x||_1.
        b
-
+```
 
 2. Compiling
 ------------
@@ -30,8 +32,9 @@ type 'mex -setup' from the Matlab command line.
 To get the solver (Adlas.R) to work from R type the following
 in the terminal window:
 
+```bash
    R CMD SHLIB cproxSortedL1.c proxSortedL1.c
-
+```
 This should generate the cproxSortedL1.so file needed by the
 solver.
 
@@ -42,8 +45,8 @@ solver.
 The scripts testAdlas.m and testAdlas.R load a matrix A and
 vectors b and lambda and apply SLOPE (SL1).
 
---- Matlab ---
 
+```Matlab
 >> testAdlas
  Iter    ||r||_2         Gap    Infeas.   Rel. gap
     1   1.57e+01    0.00e+00   4.78e+01   0.00e+00
@@ -66,9 +69,9 @@ x =
          0
          0
          0
+```
 
---- R ---
-
+```R
 > source('testAdlas.R')
  Iter    ||r||_2         Gap    Infeas.   Rel. gap
     1   1.57e+01    0.00e+00   4.78e+01   0.00e+00
@@ -89,4 +92,4 @@ Exiting with status 1 -- Optimal
  [8,]  0.00000000
  [9,]  0.00000000
 [10,]  0.00000000
-
+```

@@ -1,5 +1,3 @@
-.idea
-*.iml
 .Rproj.user
-glmSlope.Rproj
 .Rbuildignore
+.Rhistory

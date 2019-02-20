@@ -2,3 +2,4 @@
 *.iml
 .Rproj.user
 glmSlope.Rproj
+.Rbuildignore

@@ -5,19 +5,22 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _glmSlope_rcpp_hello_world() {
+// prox_sorted_L1_C
+NumericVector prox_sorted_L1_C(NumericVector y, NumericVector lambda, IntegerVector order);
+RcppExport SEXP _glmSlope_prox_sorted_L1_C(SEXP ySEXP, SEXP lambdaSEXP, SEXP orderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    rcpp_result_gen = Rcpp::wrap(prox_sorted_L1_C(y, lambda, order));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_glmSlope_rcpp_hello_world", (DL_FUNC) &_glmSlope_rcpp_hello_world, 0},
+    {"_glmSlope_prox_sorted_L1_C", (DL_FUNC) &_glmSlope_prox_sorted_L1_C, 3},
     {NULL, NULL, 0}
 };
 

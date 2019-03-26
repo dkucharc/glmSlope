@@ -1,7 +1,7 @@
 Package: glmSlope
 Type: Package
 Title: What the Package Does in One 'Title Case' Line
-Version: 1.0
+Version: 0.1
 Date: 2019-02-20
 Author: Daniel Kucharczyk
 Maintainer: Daniel Kucharczyk <danielkucharczyk@yahoo.com>
@@ -10,7 +10,6 @@ Description: One paragraph description of what the package does
 License: GPL (>= 2)
 Imports: 
     Rcpp (>= 1.0.0),
-    tibble
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Suggests: 

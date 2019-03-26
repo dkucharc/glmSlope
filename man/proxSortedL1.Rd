@@ -17,6 +17,3 @@ The prox estimations for the sorted L1 norm
 \description{
 Compute the prox for the sorted L1 norm
 }
-\examples{
-proxSortedL1(x, lambda)
-}

@@ -1,9 +1,3 @@
-#' Sorted L1 parameter estimation solver for logistic regression
-#' @param X A matrix
-#' @param y A vector
-#' @param lambda A vector
-#' @param options An optional list
-#' @return The L1 parameter estimations for logistic regression
 LogisticSlope <- function(X, y, lambda, options=list())
 {
 
@@ -83,7 +77,7 @@ LogisticSlope <- function(X, y, lambda, options=list())
   if (modeLasso)
     proxFunction <- function(x,lambda) { return(sign(x) * pmax(abs(x) - lambda,0)) }
   else
-    proxFunction <- function(v1,v2) { return(proxSortedL1(v1,v2)) }
+    proxFunction <- function(v1,v2) { return(prox_sorted_L1(v1,v2)) }
   
   if (verbosity > 0)
   {  printf <- function(...) invisible(cat(sprintf(...)))

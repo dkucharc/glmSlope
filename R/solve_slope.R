@@ -132,7 +132,7 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
     }
   } else {
     proxFunction <- function(v1, v2) {
-      return(proxSortedL1(v1, v2))
+      return(prox_sorted_L1(v1, v2))
     }
   }
 

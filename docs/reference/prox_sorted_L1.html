@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Citation and Authors • glmSlope</title>
+<title>Compute the prox for the sorted L1 norm — prox_sorted_L1 • glmSlope</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,12 +25,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Citation and Authors" />
+<meta property="og:title" content="Compute the prox for the sorted L1 norm — prox_sorted_L1" />
+
+<meta property="og:description" content="Compute the prox for the sorted L1 norm" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-citation-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -59,7 +62,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">glmSlope</a>
+        <a class="navbar-link" href="../index.html">glmSlope</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
@@ -67,13 +70,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -83,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/glmslope.html">Vignette Title</a>
+      <a href="../articles/glmslope.html">Vignette Title</a>
     </li>
   </ul>
 </li>
@@ -106,46 +109,50 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Citation</h1>
-      <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/inst/CITATION'><code>inst/CITATION</code></a></small>
+    <h1>Compute the prox for the sorted L1 norm</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/R/prox_sorted_L1.R'><code>R/prox_sorted_L1.R</code></a></small>
+    <div class="hidden name"><code>prox_sorted_L1.Rd</code></div>
     </div>
 
-    <p>Bogdan, Malgorzata, van den Berg, Ewout, Sabatti, Chiara, Su, Weijie, Candes, J. E (2015).
-&ldquo;SLOPE-Adaptive variable selection via convex optimization.&rdquo;
-<em>Ann. Appl. Stat.</em>, <b>9</b>(3), 1103&ndash;1140.
-doi: <a href="http://doi.org/10.1214/15-AOAS842">10.1214/15-AOAS842</a>, <a href="https://doi.org/10.1214/15-AOAS842">https://doi.org/10.1214/15-AOAS842</a>. 
-</p>
-    <pre>@Article{,
-  author = {{Bogdan} and {Malgorzata} and {van den Berg} and {Ewout} and {Sabatti} and {Chiara} and {Su} and {Weijie} and {Candes} and Emmanuel J.},
-  doi = {10.1214/15-AOAS842},
-  fjournal = {The Annals of Applied Statistics},
-  journal = {Ann. Appl. Stat.},
-  month = {09},
-  number = {3},
-  pages = {1103--1140},
-  publisher = {The Institute of Mathematical Statistics},
-  title = {SLOPE-Adaptive variable selection via convex optimization},
-  url = {https://doi.org/10.1214/15-AOAS842},
-  volume = {9},
-  year = {2015},
-}</pre>
-    <div class="page-header">
-      <h1>Authors</h1>
+    <div class="ref-description">
+    
+    <p>Compute the prox for the sorted L1 norm</p>
+    
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Daniel Kucharczyk</strong>. Maintainer. 
-        </p>
-      </li>
-    </ul>
+    <pre class="usage"><span class='fu'>prox_sorted_L1</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>an input vector</p></td>
+    </tr>
+    <tr>
+      <th>lambda</th>
+      <td><p>vectors of \(\lambda\)'s</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The prox estimations for the sorted L1 norm</p>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">

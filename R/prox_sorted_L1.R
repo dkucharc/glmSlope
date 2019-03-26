@@ -3,7 +3,8 @@
 #' @param lambda vectors of \eqn{\lambda}'s
 #' 
 #' @return The prox estimations for the sorted L1 norm
-proxSortedL1 = function (x, lambda) {
+#' @export
+prox_sorted_L1 <- function(x, lambda) {
   if (is.complex(x))
   {
     sign = Arg(x)
@@ -15,7 +16,7 @@ proxSortedL1 = function (x, lambda) {
     x = abs(x)
   }
   
-  s = sort(x, decreasing=TRUE, index.return=TRUE)
+  s = sort(x, decreasing = TRUE, index.return=TRUE)
   s$ix <- s$ix - 1
   
   result <- prox_sorted_L1_C(s$x, lambda, s$ix)

@@ -2,4 +2,5 @@
 
 [![Build Status](https://travis-ci.com/dkucharc/glmSlope.svg?branch=master)](https://travis-ci.com/dkucharc/glmSlope)
 
-Dev repository used to build the glmSlope package.
+### Style guide:
+http://r-pkgs.had.co.nz/style.html

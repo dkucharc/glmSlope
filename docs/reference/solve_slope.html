@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • glmSlope</title>
+<title>Sorted L1 solver — solve_slope • glmSlope</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,14 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Sorted L1 solver — solve_slope" />
+
+<meta property="og:description" content="Solves the sorted L1 penalized regression problem: given a matrix \(X\),
+a vector \(y\), and a decreasing vector \(\lambda\), find the vector
+\(w\) minimizing
+$$\frac{1}{2}\Vert Xw - y \Vert_2^2 +
+      \sum_{i=1}^p \lambda_i |w|_{(i)}.$$" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -106,60 +113,90 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Sorted L1 solver</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/R/solve_slope.R'><code>R/solve_slope.R</code></a></small>
+    <div class="hidden name"><code>solve_slope.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Solves the sorted L1 penalized regression problem: given a matrix \(X\),
+a vector \(y\), and a decreasing vector \(\lambda\), find the vector
+\(w\) minimizing
+$$\frac{1}{2}\Vert Xw - y \Vert_2^2 +
+      \sum_{i=1}^p \lambda_i |w|_{(i)}.$$</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="Adlas.html">Adlas()</a></code> </p>
-        </td>
-        <td><p>Sorted L1 parameter estimation solver for linear regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="LogisticSlope.html">LogisticSlope()</a></code> </p>
-        </td>
-        <td><p>Sorted L1 parameter estimation solver for logistic regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="proxSortedL1.html">proxSortedL1()</a></code> </p>
-        </td>
-        <td><p>Compute the prox for the sorted L1 norm</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="solve_slope.html">solve_slope()</a></code> </p>
-        </td>
-        <td><p>Sorted L1 solver</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>solve_slope</span>(<span class='no'>X</span>, <span class='no'>y</span>, <span class='no'>lambda</span>, <span class='kw'>initial</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_iter</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>grad_iter</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>opt_iter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>tol_infeas</span> <span class='kw'>=</span> <span class='fl'>1e-06</span>,
+  <span class='kw'>tol_rel_gap</span> <span class='kw'>=</span> <span class='fl'>1e-06</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>X</th>
+      <td><p>an \(n\)-by-\(p\) matrix</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>a vector of length \(n\)</p></td>
+    </tr>
+    <tr>
+      <th>lambda</th>
+      <td><p>vector of length \(p\), sorted in decreasing order</p></td>
+    </tr>
+    <tr>
+      <th>initial</th>
+      <td><p>initial guess for \(w\)</p></td>
+    </tr>
+    <tr>
+      <th>max_iter</th>
+      <td><p>maximum number of iterations in the gradient descent</p></td>
+    </tr>
+    <tr>
+      <th>grad_iter</th>
+      <td><p>number of iterations between gradient updates</p></td>
+    </tr>
+    <tr>
+      <th>opt_iter</th>
+      <td><p>number of iterations between checks for optimality</p></td>
+    </tr>
+    <tr>
+      <th>tol_infeas</th>
+      <td><p>tolerance for infeasibility</p></td>
+    </tr>
+    <tr>
+      <th>tol_rel_gap</th>
+      <td><p>tolerance for relative gap between primal and dual
+problems</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>The solution vector \(w\)</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This optimization problem is convex and is solved using an
+accelerated proximal gradient descent method.</p>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
+
   </div>
 </div>
 

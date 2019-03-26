@@ -41,7 +41,7 @@ logistic" />
 <meta property="og:description" content="$$
  \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
       \sum_{i=1}^p \lambda_i |w|_{(i)},$$
-where \(X\) is an \(n\times p\) matrix, \(y\in \mathbb{R}^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
+where \(X\) is an \(n\times p\) matrix, \(y\in R^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
 and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
 <meta name="twitter:card" content="summary" />
 
@@ -137,7 +137,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
     $$
  \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
       \sum_{i=1}^p \lambda_i |w|_{(i)},$$</p></li>
-</ul><p>where \(X\) is an \(n\times p\) matrix, \(y\in \mathbb{R}^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
+</ul><p>where \(X\) is an \(n\times p\) matrix, \(y\in R^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
 and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\).</p>
     
     </div>
@@ -163,7 +163,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\).</p>
     </tr>
     <tr>
       <th>model</th>
-      <td><p>a description of the regression model. Supported models: <code>"linear"</code> (default) and "logistic".</p></td>
+      <td><p>a description of the regression model. Supported models: <code>"linear"</code> (default) and <code>"logistic"</code></p></td>
     </tr>
     <tr>
       <th>initial</th>

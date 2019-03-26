@@ -13,7 +13,7 @@
 #'       \sum_{i=1}^p \lambda_i |w|_{(i)},}
 #'       }
 #' }
-#' where \eqn{X} is an \eqn{n\times p} matrix, \eqn{y\in \mathbb{R}^n} (linear) or \eqn{y\in \{0,1\}^n} (logistic) depending on the model selection,
+#' where \eqn{X} is an \eqn{n\times p} matrix, \eqn{y\in R^n} (linear) or \eqn{y\in \{0,1\}^n} (logistic) depending on the model selection,
 #' and \eqn{|w|_{(i)}} denotes the \eqn{i}-th largest entry in \eqn{|w|}.
 #' @param X an \eqn{n}-by-\eqn{p} matrix
 #' @param y a vector of length \eqn{n}

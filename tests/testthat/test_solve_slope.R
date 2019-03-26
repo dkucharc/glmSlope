@@ -20,7 +20,7 @@ info_linear <- solve_slope(X, y, lambda, model = 'linear')
 
 test_that("slope linear solver - results consistency", {
   expect_equal(
-    as.vector(info$w), 
+    as.vector(info_linear$w), 
     c(-0.78334637, 0.02170683, -1.13560148, 0, 0.02170683, 0, 0, 0, 0, 0)
   )
 })

@@ -1,6 +1,6 @@
 #' Compute the prox for the sorted L1 norm
 #' @param  x an input vector
-#' @param lambda vectors of $\lamda$'s
+#' @param lambda vectors of \eqn{\lambda}'s
 #' 
 #' @return The prox estimations for the sorted L1 norm
 #' @examples 

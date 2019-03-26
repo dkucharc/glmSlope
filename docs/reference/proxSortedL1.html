@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sorted L1 parameter estimation solver for logistic regression — LogisticSlope • glmSlope</title>
+<title>Compute the prox for the sorted L1 norm — proxSortedL1 • glmSlope</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Sorted L1 parameter estimation solver for logistic regression — LogisticSlope" />
+<meta property="og:title" content="Compute the prox for the sorted L1 norm — proxSortedL1" />
 
-<meta property="og:description" content="Sorted L1 parameter estimation solver for logistic regression" />
+<meta property="og:description" content="Compute the prox for the sorted L1 norm" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,47 +111,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sorted L1 parameter estimation solver for logistic regression</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/R/LogisticSlope.R'><code>R/LogisticSlope.R</code></a></small>
-    <div class="hidden name"><code>LogisticSlope.Rd</code></div>
+    <h1>Compute the prox for the sorted L1 norm</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/R/proxSortedL1.R'><code>R/proxSortedL1.R</code></a></small>
+    <div class="hidden name"><code>proxSortedL1.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Sorted L1 parameter estimation solver for logistic regression</p>
+    <p>Compute the prox for the sorted L1 norm</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>LogisticSlope</span>(<span class='no'>X</span>, <span class='no'>y</span>, <span class='no'>lambda</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>proxSortedL1</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>X</th>
-      <td><p>A matrix</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>A vector</p></td>
+      <th>x</th>
+      <td><p>an input vector</p></td>
     </tr>
     <tr>
       <th>lambda</th>
-      <td><p>A vector</p></td>
-    </tr>
-    <tr>
-      <th>options</th>
-      <td><p>An optional list</p></td>
+      <td><p>vectors of \(\lambda\)'s</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The L1 parameter estimations for logistic regression</p>
+    <p>The prox estimations for the sorted L1 norm</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>LogisticSlope</span>(<span class='no'>X</span>, <span class='no'>y</span>, <span class='no'>lambda</span>)</div><div class='output co'>#&gt; <span class='error'>Error in LogisticSlope(X, y, lambda): object 'lambda' not found</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>proxSortedL1</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)</div><div class='output co'>#&gt; <span class='error'>Error in proxSortedL1(x, lambda): object 'x' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

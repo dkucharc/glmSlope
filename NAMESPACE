@@ -1,3 +1,5 @@
 useDynLib(glmSlope, .registration=TRUE)
-exportPattern("^[[:alpha:]]+")
+export(Adlas)
+export(LogisticSlope)
+export(proxSortedL1)
 importFrom(Rcpp, evalCpp)

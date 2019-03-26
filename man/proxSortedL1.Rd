@@ -9,7 +9,7 @@ proxSortedL1(x, lambda)
 \arguments{
 \item{x}{an input vector}
 
-\item{lambda}{vectors of $\lamda$'s}
+\item{lambda}{vectors of \eqn{\lambda}'s}
 }
 \value{
 The prox estimations for the sorted L1 norm

@@ -1,3 +1,11 @@
+#' Sorted L1 parameter estimation solver for linear regression
+#' @param X A matrix
+#' @param y A vector
+#' @param lambda A vector
+#' @param options An optional list
+#' @return The L1 parameter estimations for linear regression
+#' @examples 
+#' Adlas()
 Adlas <- function(X,y,lambda,options=list())
 {
   # Copyright 2013, M. Bogdan, E. van den Berg, W. Su, and E.J. Candes
@@ -214,6 +222,8 @@ Adlas <- function(X,y,lambda,options=list())
   
   info$w         <- v
   info$L         <- L
+  
+  
   
   return(info)
 } # Function Adlas

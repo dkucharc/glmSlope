@@ -21,6 +21,3 @@ The L1 parameter estimations for logistic regression
 \description{
 Sorted L1 parameter estimation solver for logistic regression
 }
-\examples{
-LogisticSlope(X, y, lambda)
-}

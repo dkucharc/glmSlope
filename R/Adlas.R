@@ -4,8 +4,6 @@
 #' @param lambda A vector
 #' @param options An optional list
 #' @return The L1 parameter estimations for linear regression
-#' @examples 
-#' Adlas(X, y, lambda)
 Adlas <- function(X,y,lambda,options=list())
 {
   # Copyright 2013, M. Bogdan, E. van den Berg, W. Su, and E.J. Candes

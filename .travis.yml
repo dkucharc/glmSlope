@@ -1,7 +1,5 @@
-language: r
-cache: packages
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-addons:
-  apt:
-    packages:
-      - libxml2-dev
+language: R
+sudo: false
+cache: packages

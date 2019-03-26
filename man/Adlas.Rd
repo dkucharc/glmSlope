@@ -22,5 +22,5 @@ The L1 parameter estimations for linear regression
 Sorted L1 parameter estimation solver for linear regression
 }
 \examples{
-Adlas()
+Adlas(X, y, lambda)
 }

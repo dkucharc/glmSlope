@@ -1,3 +1,10 @@
+#' Compute the prox for the sorted L1 norm
+#' @param  x an input vector
+#' @param lambda vectors of $\lamda$'s
+#' 
+#' @return The prox estimations for the sorted L1 norm
+#' @examples 
+#' proxSortedL1(x, lambda)
 proxSortedL1 = function (x, lambda) {
   if (is.complex(x))
   {

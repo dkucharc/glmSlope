@@ -5,7 +5,7 @@
 #' @param options An optional list
 #' @return The L1 parameter estimations for logistic regression
 #' @examples 
-#' LogisticSlope()
+#' LogisticSlope(X, y, lambda)
 LogisticSlope <- function(X, y, lambda, options=list())
 {
 

@@ -2,11 +2,11 @@
 % Please edit documentation in R/solve_slope.R
 \name{solve_slope}
 \alias{solve_slope}
-\title{Sorted L1 solver}
+\title{Sorted L1 parameters estimation solver for the generalized linear models}
 \usage{
-solve_slope(X, y, lambda, initial = NULL, max_iter = 10000,
-  grad_iter = 20, opt_iter = 1, tol_infeas = 1e-06,
-  tol_rel_gap = 1e-06)
+solve_slope(X, y, lambda, model = c("linear", "logistic"),
+  initial = NULL, max_iter = 10000, grad_iter = 20, opt_iter = 1,
+  tol_infeas = 1e-06, tol_rel_gap = 1e-06)
 }
 \arguments{
 \item{X}{an \eqn{n}-by-\eqn{p} matrix}
@@ -14,6 +14,8 @@ solve_slope(X, y, lambda, initial = NULL, max_iter = 10000,
 \item{y}{a vector of length \eqn{n}}
 
 \item{lambda}{vector of length \eqn{p}, sorted in decreasing order}
+
+\item{model}{a description of the regression model. Supported models: \code{"linear"} (default) and \code{"logistic"}}
 
 \item{initial}{initial guess for \eqn{w}}
 
@@ -32,11 +34,21 @@ problems}
 The solution vector \eqn{w}
 }
 \description{
-Solves the sorted L1 penalized regression problem: given a matrix \eqn{X},
-a vector \eqn{y}, and a decreasing vector \eqn{\lambda}, find the vector
-\eqn{w} minimizing
-\deqn{\frac{1}{2}\Vert Xw - y \Vert_2^2 +
-      \sum_{i=1}^p \lambda_i |w|_{(i)}.}
+Solves the sorted L1 penalized probelns for the following regression models:
+\itemize{
+  \item{linear}{
+  \deqn{ \arg\!\min_{w} \frac{1}{2}\Vert Xw - y \Vert_2^2 +
+      \sum_{i=1}^p \lambda_i |w|_{(i)},}
+  }
+  \item{logistic}{
+  
+ \deqn{
+ \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
+      \sum_{i=1}^p \lambda_i |w|_{(i)},}
+      }
+}
+where \eqn{X} is an \eqn{n\times p} matrix, \eqn{y\in \mathbb{R}^n} (linear) or \eqn{y\in \{0,1\}^n} (logistic) depending on the model selection,
+and \eqn{|w|_{(i)}} denotes the \eqn{i}-th largest entry in \eqn{|w|}.
 }
 \details{
 This optimization problem is convex and is solved using an

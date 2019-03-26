@@ -1,14 +1,24 @@
-#' Sorted L1 solver
+#' Sorted L1 parameters estimation solver for the generalized linear models
 #'
-#' Solves the sorted L1 penalized regression problem: given a matrix \eqn{X},
-#' a vector \eqn{y}, and a decreasing vector \eqn{\lambda}, find the vector
-#' \eqn{w} minimizing
-#' \deqn{\frac{1}{2}\Vert Xw - y \Vert_2^2 +
-#'       \sum_{i=1}^p \lambda_i |w|_{(i)}.}
-#'
+#' Solves the sorted L1 penalized probelns for the following regression models:
+#' \itemize{
+#'   \item{linear}{
+#'   \deqn{ \arg\!\min_{w} \frac{1}{2}\Vert Xw - y \Vert_2^2 +
+#'       \sum_{i=1}^p \lambda_i |w|_{(i)},}
+#'   }
+#'   \item{logistic}{
+#'   
+#'  \deqn{
+#'  \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
+#'       \sum_{i=1}^p \lambda_i |w|_{(i)},}
+#'       }
+#' }
+#' where \eqn{X} is an \eqn{n\times p} matrix, \eqn{y\in \mathbb{R}^n} (linear) or \eqn{y\in \{0,1\}^n} (logistic) depending on the model selection,
+#' and \eqn{|w|_{(i)}} denotes the \eqn{i}-th largest entry in \eqn{|w|}.
 #' @param X an \eqn{n}-by-\eqn{p} matrix
 #' @param y a vector of length \eqn{n}
 #' @param lambda vector of length \eqn{p}, sorted in decreasing order
+#' @param model a description of the regression model. Supported models: \code{"linear"} (default) and \code{"logistic"} 
 #' @param initial initial guess for \eqn{w}
 #' @param max_iter maximum number of iterations in the gradient descent
 #' @param grad_iter number of iterations between gradient updates
@@ -25,60 +35,19 @@
 #' @export
 # Adapted from SLOPE_solver.R from the SLOPE: Sorted L1 Penalized Estimation (SLOPE) package
 
-solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_iter = 20, opt_iter = 1,
+solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial = NULL, max_iter = 10000, grad_iter = 20, opt_iter = 1,
                         tol_infeas = 1e-6, tol_rel_gap = 1e-6) {
-  # Copyright 2013, M. Bogdan, E. van den Berg, W. Su, and E.J. Candes
-
-  # This file is part of SLOPE Toolbox version 1.0.
-  #
-  #    The SLOPE Toolbox is free software: you can redistribute it
-  #    and/or  modify it under the terms of the GNU General Public License
-  #    as published by the Free Software Foundation, either version 3 of
-  #    the License, or (at your option) any later version.
-  #
-  #    The SLOPE Toolbox is distributed in the hope that it will
-  #    be useful, but WITHOUT ANY WARRANTY; without even the implied
-  #    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  #    See the GNU General Public License for more details.
-  #
-  #    You should have received a copy of the GNU General Public License
-  #    along with the SLOPE Toolbox. If not, see
-  #    <http://www.gnu.org/licenses/>.
-
+  
+  model <- match.arg(model)
   # -------------------------------------------------------------
   # Start times
   # -------------------------------------------------------------
   t0 <- proc.time()[3]
 
   # -------------------------------------------------------------
-  # Define function for retrieving option fields with defaults
-  # -------------------------------------------------------------
-  getDefaultField <- function(options, name, default) {
-    if (!is.null(options[[name]])) {
-      return(options[[name]])
-    }
-    else {
-      return(default)
-    }
-  }
-
-  # -------------------------------------------------------------
-  # Parse parameters
-  # -------------------------------------------------------------
-  options <- list()
-  iterations <- getDefaultField(options, "iterations", 10000)
-  verbosity <- getDefaultField(options, "verbosity", 1)
-  optimIter <- getDefaultField(options, "optimIter", 1)
-  gradIter <- getDefaultField(options, "gradIter", 20)
-  tolInfeas <- getDefaultField(options, "tolInfeas", 1e-6)
-  tolRelGap <- getDefaultField(options, "tolRelGap", 1e-6)
-  wInit <- getDefaultField(options, "wInit", vector())
-
-  # -------------------------------------------------------------
   # Ensure that lambda is non-increasing
   # -------------------------------------------------------------
   n <- length(lambda)
-  matrix(lambda, c(1, n))
   if ((n > 1) && any(lambda[2:n] > lambda[1:n - 1])) {
     stop("Lambda must be non-increasing.")
   }
@@ -110,7 +79,7 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
   STATUS_MSG <- c("Optimal", "Iteration limit reached")
 
   # Initialize parameters and iterates
-  if (length(wInit) == 0) wInit <- matrix(0, n, 1)
+  wInit = if (is.null(initial)) rep(0, n) else initial
   t <- 1
   eta <- 2
   lambda <- matrix(lambda, nrow = length(lambda))
@@ -121,24 +90,17 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
   fPrev <- Inf
   iter <- 0
   status <- STATUS_RUNNING
-  Aprods <- 2
-  ATprods <- 1
 
   # Deal with Lasso case
-  modeLasso <- (length(lambda) == 1)
-  if (modeLasso) {
-    proxFunction <- function(x, lambda) {
+  lasso_mode <- (length(lambda) == 1)
+  if (lasso_mode) {
+    prox_func <- function(x, lambda) {
       return(sign(x) * pmax(abs(x) - lambda, 0))
     }
   } else {
-    proxFunction <- function(v1, v2) {
+    prox_func <- function(v1, v2) {
       return(prox_sorted_L1(v1, v2))
     }
-  }
-
-  if (verbosity > 0) {
-    printf <- function(...) invisible(cat(sprintf(...)))
-    printf("%5s  %9s   %9s  %9s  %9s\n", "Iter", "||r||_2", "Gap", "Infeas.", "Rel. gap")
   }
 
   # -------------------------------------------------------------
@@ -146,7 +108,7 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
   # -------------------------------------------------------------
   while (TRUE) {
     # Compute the gradient at f(v)
-    if ((iter %% gradIter) == 0) # Includes first iterations
+    if ((iter %% grad_iter) == 0) # Includes first iterations
     {
       r <- (X %*% v) - y
       g <- t(X) %*% r
@@ -162,8 +124,8 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
     iter <- iter + 1
 
     # Check optimality conditions
-    if ((iter %% optimIter) == 0) { # Compute 'dual', check infeasibility and gap
-      if (modeLasso) {
+    if ((iter %% opt_iter) == 0) { # Compute 'dual', check infeasibility and gap
+      if (lasso_mode) {
         infeas <- max(norm(g, "I") - lambda, 0)
         objPrimal <- f + lambda * norm(v, "1")
         objDual <- -f - as.double(crossprod(r, y))
@@ -178,37 +140,19 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
         objDual <- -f - as.double(crossprod(r, y))
       }
 
-      # Format string
-      if (verbosity > 0) {
-        str <- sprintf("   %9.2e  %9.2e  %9.2e", objPrimal - objDual, infeas / lambda[[1]], abs(objPrimal - objDual) / max(1, objPrimal))
-      }
-
       # Check primal-dual gap
-      if ((abs(objPrimal - objDual) / max(1, objPrimal) < tolRelGap) &&
-        (infeas < tolInfeas * lambda[[1]])) {
+      if ((abs(objPrimal - objDual) / max(1, objPrimal) < tol_rel_gap) &&
+        (infeas < tol_infeas * lambda[[1]])) {
         status <- STATUS_OPTIMAL
       }
     }
-    else {
-      str <- ""
-    }
-
-    if (verbosity > 0) {
-      if ((verbosity == 2) ||
-        ((verbosity == 1) && ((iter %% optimIter) == 0))) {
-        printf("%5d  %9.2e%s\n", iter, f, str)
-      }
-    }
-
+    
     # Stopping criteria
-    if ((status == 0) && (iter >= iterations)) {
+    if ((status == 0) && (iter >= max_iter)) {
       status <- STATUS_ITERATIONS
     }
 
     if (status != 0) {
-      if (verbosity > 0) {
-        printf("Exiting with status %d -- %s\n", status, STATUS_MSG[[status]])
-      }
       break
     }
 
@@ -220,15 +164,13 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
 
     # Lipschitz search
     while (TRUE) { # Compute prox mapping
-      w <- proxFunction(v - (1 / L) * g, lambda / L)
+      w <- prox_func(v - (1 / L) * g, lambda / L)
       d <- w - v
 
       Xw <- X %*% w
       r <- Xw - y
       f <- as.double(crossprod(r)) / 2
       q <- fPrev + as.double(crossprod(d, g)) + (L / 2) * as.double(crossprod(d))
-
-      Aprods <- Aprods + 1
 
       if (q >= f * (1 - 1e-12)) {
         break
@@ -246,8 +188,6 @@ solve_slope <- function(X, y, lambda, initial = NULL, max_iter = 10000, grad_ite
   # Information structure
   info <- c()
   info$runtime <- proc.time()[3] - t0
-  info$Aprods <- Aprods + ceiling(iter / gradIter)
-  info$ATprods <- ATprods + iter
   info$objPrimal <- objPrimal
   info$objDual <- objDual
   info$infeas <- infeas

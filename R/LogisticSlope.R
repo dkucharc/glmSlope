@@ -105,17 +105,14 @@ LogisticSlope <- function(X, y, lambda, options=list())
       if (modeLasso) { 
         infeas    <- max(abs(g)-lambda,0)
         objPrimal <- f + lambda * norm(v,'1')
-        objDual   <- as.double(crossprod(r-1, log1mr)) - as.double(crossprod(r, log(r)))
-      }
-      else {  
+      } else {  
         gs     <- sort(abs(g), decreasing=TRUE)
         vs     <- sort(abs(v), decreasing=TRUE)
         infeas <- max(max(cumsum(gs-lambda)),0)
-      
         # Compute primal and dual objective
         objPrimal <-  f + as.double(crossprod(lambda,vs))
-        objDual   <- as.double(crossprod(r-1, log1mr)) - as.double(crossprod(r, log(r)))
       }
+      objDual   <- as.double(crossprod(r-1, log1mr)) - as.double(crossprod(r, log(r)))
       
       # Format string
       if (verbosity > 0)

@@ -76,21 +76,24 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
   STATUS_RUNNING <- 0
   STATUS_OPTIMAL <- 1
   STATUS_ITERATIONS <- 2
-  STATUS_MSG <- c("Optimal", "Iteration limit reached")
 
   # Initialize parameters and iterates
-  wInit = if (is.null(initial)) rep(0, n) else initial
+  w.init = if (is.null(initial)) rep(0, n) else initial
   t <- 1
   eta <- 2
   lambda <- matrix(lambda, nrow = length(lambda))
+  Y       <- diag(as.vector(y), length(y))
+  YX      <- Y %*% X
   y <- matrix(y, nrow = length(y))
-  w <- wInit
+  w <- w.init
   v <- w
   Xw <- X %*% w
-  fPrev <- Inf
+  f.prev <- Inf
   iter <- 0
   status <- STATUS_RUNNING
+  # Logistic
 
+  
   # Deal with Lasso case
   lasso_mode <- (length(lambda) == 1)
   if (lasso_mode) {
@@ -108,38 +111,47 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
   # -------------------------------------------------------------
   while (TRUE) {
     # Compute the gradient at f(v)
-    if ((iter %% grad_iter) == 0) # Includes first iterations
-    {
-      r <- (X %*% v) - y
-      g <- t(X) %*% r
+    if (model == "linear") {
+      if ((iter %% grad_iter) == 0) {
+        r <- (X %*% v) - y
+      } else {
+        r <- (Xw + ((t.prev - 1) / t) * (Xw - Xw.prev)) - y
+      }
+      g <- as.double(crossprod(X, r))
       f <- as.double(crossprod(r)) / 2
-    }
-    else {
-      r <- (Xw + ((tPrev - 1) / t) * (Xw - XwPrev)) - y
-      g <- t(X) %*% r
-      f <- as.double(crossprod(r)) / 2
+    } else if (model == "logistic") {
+      r <- 1 / (1 + exp(YX %*% v))
+      g <- -as.double(crossprod(YX, r))
+      log1mr <- log(1 - r)
+      f <- -sum(log1mr)
+    } else {
+      stop("Not supported model.")
     }
 
     # Increment iteration count
     iter <- iter + 1
 
     # Check optimality conditions
-    if ((iter %% opt_iter) == 0) { # Compute 'dual', check infeasibility and gap
+    if ((iter %% opt_iter) == 0) { 
+      # Compute 'dual', check infeasibility and gap
       if (lasso_mode) {
         infeas <- max(norm(g, "I") - lambda, 0)
         objPrimal <- f + lambda * norm(v, "1")
-        objDual <- -f - as.double(crossprod(r, y))
-      }
-      else {
+      } else {
         gs <- sort(abs(g), decreasing = TRUE)
-        ys <- sort(abs(v), decreasing = TRUE)
+        vs <- sort(abs(v), decreasing = TRUE)
         infeas <- max(max(cumsum(gs - lambda)), 0)
-
         # Compute primal and dual objective
-        objPrimal <- f + as.double(crossprod(lambda, ys))
-        objDual <- -f - as.double(crossprod(r, y))
+        objPrimal <- f + as.double(crossprod(lambda, vs))
       }
-
+      if (model == "linear") {
+        objDual <- -f - as.double(crossprod(r, y))
+      } else if (model == "logistic") {
+        objDual   <- as.double(crossprod(r - 1, log1mr)) - as.double(crossprod(r, log(r)))  
+      } else (
+        stop("Not supported model")
+      )
+      
       # Check primal-dual gap
       if ((abs(objPrimal - objDual) / max(1, objPrimal) < tol_rel_gap) &&
         (infeas < tol_infeas * lambda[[1]])) {
@@ -157,10 +169,10 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
     }
 
     # Keep copies of previous values
-    XwPrev <- Xw
-    wPrev <- w
-    fPrev <- f
-    tPrev <- t
+    Xw.prev <- Xw
+    w.prev <- w
+    f.prev <- f
+    t.prev <- t
 
     # Lipschitz search
     while (TRUE) { # Compute prox mapping
@@ -168,20 +180,27 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
       d <- w - v
 
       Xw <- X %*% w
-      r <- Xw - y
-      f <- as.double(crossprod(r)) / 2
-      q <- fPrev + as.double(crossprod(d, g)) + (L / 2) * as.double(crossprod(d))
-
-      if (q >= f * (1 - 1e-12)) {
-        break
+      if (model == "linear") {
+        r <- Xw - y
+        f <- as.double(crossprod(r)) / 2
+      } else if (model == "logistic") {
+        r  <- 1/(1 + exp(YX %*% w))
+        f  <- -sum(log(1 - r))
       } else {
+        stop("Not supported model")
+      }
+      q <- f.prev + as.double(crossprod(d, g)) + (L / 2) * as.double(crossprod(d))
+
+      if (q < f * (1 - 1e-12)) {
         L <- L * eta
+      } else {
+        break
       }
     } # Lipschitz search
 
     # Update
     t <- (1 + sqrt(1 + 4 * t^2)) / 2
-    v <- w + ((tPrev - 1) / t) * (w - wPrev)
+    v <- w + ((t.prev - 1) / t) * (w - w.prev)
   } # While (TRUE)
 
 

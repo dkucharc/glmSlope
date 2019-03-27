@@ -32,17 +32,7 @@
 
 <meta property="og:title" content="Sorted L1 parameters estimation solver for the generalized linear models — solve_slope" />
 
-<meta property="og:description" content="Solves the sorted L1 penalized probelns for the following regression models:
-linear
-  $$ \arg\!\min_{w} \frac{1}{2}\Vert Xw - y \Vert_2^2 +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},$$
-logistic" />
-
-<meta property="og:description" content="$$
- \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},$$
-where \(X\) is an \(n\times p\) matrix, \(y\in R^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
-and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
+<meta property="og:description" content="Sorted L1 parameters estimation solver for the generalized linear models" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,17 +118,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
 
     <div class="ref-description">
     
-    <p>Solves the sorted L1 penalized probelns for the following regression models:</p><ul>
-<li><p>linear
-  $$ \arg\!\min_{w} \frac{1}{2}\Vert Xw - y \Vert_2^2 +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},$$</p></li>
-<li><p>logistic
-
-    $$
- \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},$$</p></li>
-</ul><p>where \(X\) is an \(n\times p\) matrix, \(y\in R^n\) (linear) or \(y\in \{0,1\}^n\) (logistic) depending on the model selection,
-and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\).</p>
+    <p>Sorted L1 parameters estimation solver for the generalized linear models</p>
     
     </div>
 
@@ -196,11 +176,6 @@ problems</p></td>
 
     <p>The solution vector \(w\)</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This optimization problem is convex and is solved using an
-accelerated proximal gradient descent method.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -209,8 +184,6 @@ accelerated proximal gradient descent method.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

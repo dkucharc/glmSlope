@@ -7,7 +7,7 @@
 #'       \sum_{i=1}^p \lambda_i |w|_{(i)},}
 #'   }
 #'   \item{logistic}{
-#'   
+#'
 #'  \deqn{
 #'  \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
 #'       \sum_{i=1}^p \lambda_i |w|_{(i)},}
@@ -18,7 +18,7 @@
 #' @param X an \eqn{n}-by-\eqn{p} matrix
 #' @param y a vector of length \eqn{n}
 #' @param lambda vector of length \eqn{p}, sorted in decreasing order
-#' @param model a description of the regression model. Supported models: \code{"linear"} (default) and \code{"logistic"} 
+#' @param model a description of the regression model. Supported models: \code{"linear"} (default) and \code{"logistic"}
 #' @param initial initial guess for \eqn{w}
 #' @param max_iter maximum number of iterations in the gradient descent
 #' @param grad_iter number of iterations between gradient updates
@@ -37,7 +37,6 @@
 
 solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial = NULL, max_iter = 10000, grad_iter = 20, opt_iter = 1,
                         tol_infeas = 1e-6, tol_rel_gap = 1e-6) {
-  
   model <- match.arg(model)
   # -------------------------------------------------------------
   # Start times
@@ -78,12 +77,12 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
   STATUS_ITERATIONS <- 2
 
   # Initialize parameters and iterates
-  w.init = if (is.null(initial)) rep(0, n) else initial
+  w.init <- if (is.null(initial)) rep(0, n) else initial
   t <- 1
   eta <- 2
   lambda <- matrix(lambda, nrow = length(lambda))
-  Y       <- diag(as.vector(y), length(y))
-  YX      <- Y %*% X
+  Y <- diag(as.vector(y), length(y))
+  YX <- Y %*% X
   y <- matrix(y, nrow = length(y))
   w <- w.init
   v <- w
@@ -93,7 +92,7 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
   status <- STATUS_RUNNING
   # Logistic
 
-  
+
   # Deal with Lasso case
   lasso_mode <- (length(lambda) == 1)
   if (lasso_mode) {
@@ -125,14 +124,14 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
       log1mr <- log(1 - r)
       f <- -sum(log1mr)
     } else {
-      stop("Not supported model.")
+      stop("Not supported model")
     }
 
     # Increment iteration count
     iter <- iter + 1
 
     # Check optimality conditions
-    if ((iter %% opt_iter) == 0) { 
+    if ((iter %% opt_iter) == 0) {
       # Compute 'dual', check infeasibility and gap
       if (lasso_mode) {
         infeas <- max(norm(g, "I") - lambda, 0)
@@ -147,18 +146,20 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
       if (model == "linear") {
         objDual <- -f - as.double(crossprod(r, y))
       } else if (model == "logistic") {
-        objDual   <- as.double(crossprod(r - 1, log1mr)) - as.double(crossprod(r, log(r)))  
-      } else (
-        stop("Not supported model")
-      )
-      
+        objDual <- as.double(crossprod(r - 1, log1mr)) - as.double(crossprod(r, log(r)))
+      } else {
+        (
+          stop("Not supported model")
+        )
+      }
+
       # Check primal-dual gap
       if ((abs(objPrimal - objDual) / max(1, objPrimal) < tol_rel_gap) &&
         (infeas < tol_infeas * lambda[[1]])) {
         status <- STATUS_OPTIMAL
       }
     }
-    
+
     # Stopping criteria
     if ((status == 0) && (iter >= max_iter)) {
       status <- STATUS_ITERATIONS
@@ -184,8 +185,8 @@ solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial =
         r <- Xw - y
         f <- as.double(crossprod(r)) / 2
       } else if (model == "logistic") {
-        r  <- 1/(1 + exp(YX %*% w))
-        f  <- -sum(log(1 - r))
+        r <- 1 / (1 + exp(YX %*% w))
+        f <- -sum(log(1 - r))
       } else {
         stop("Not supported model")
       }

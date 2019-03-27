@@ -36,7 +36,7 @@ lambda <- c(1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)
 solve_slope(X, y, lambda, model = 'logistic')
 ```
 
-
 ### References:
 [SLOPE—Adaptive variable selection via convex optimization](https://projecteuclid.org/download/pdfview_1/euclid.aoas/1446488733)
 
+[Sparse Portfolio Selection via the sorted L1 - Norm](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3048879&download=yes)

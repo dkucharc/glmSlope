@@ -34,23 +34,5 @@ problems}
 The solution vector \eqn{w}
 }
 \description{
-Solves the sorted L1 penalized probelns for the following regression models:
-\itemize{
-  \item{linear}{
-  \deqn{ \arg\!\min_{w} \frac{1}{2}\Vert Xw - y \Vert_2^2 +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},}
-  }
-  \item{logistic}{
-  
- \deqn{
- \arg\!\min_{w}\sum_{i=1}^{n}\left(\log{\left(1+\exp{\left(-y_ix_i^Tw\right)}\right)}\right) +
-      \sum_{i=1}^p \lambda_i |w|_{(i)},}
-      }
-}
-where \eqn{X} is an \eqn{n\times p} matrix, \eqn{y\in R^n} (linear) or \eqn{y\in \{0,1\}^n} (logistic) depending on the model selection,
-and \eqn{|w|_{(i)}} denotes the \eqn{i}-th largest entry in \eqn{|w|}.
-}
-\details{
-This optimization problem is convex and is solved using an
-accelerated proximal gradient descent method.
+Sorted L1 parameters estimation solver for the generalized linear models
 }

@@ -37,6 +37,8 @@ solve_slope(X, y, lambda, model = 'logistic')
 ```
 
 ### References:
-[SLOPE—Adaptive variable selection via convex optimization](https://projecteuclid.org/download/pdfview_1/euclid.aoas/1446488733)
+1. [SLOPE—Adaptive variable selection via convex optimization](https://projecteuclid.org/download/pdfview_1/euclid.aoas/1446488733)
 
-[Sparse Portfolio Selection via the sorted L1 - Norm](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3048879&download=yes)
+2. [Sparse Portfolio Selection via the sorted L1 - Norm](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3048879&download=yes)
+
+3. [Proximal Algorithms](https://web.stanford.edu/~boyd/papers/pdf/prox_algs.pdf)

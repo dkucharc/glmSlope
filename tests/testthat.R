@@ -1,4 +1,4 @@
 library(testthat)
-library(glmSlope)
+library(glmSLOPE)
 
-test_check("glmSlope")
+test_check("glmSLOPE")

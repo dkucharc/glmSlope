@@ -1,17 +1,17 @@
 context("solve_slope")
 
 X <- as.matrix(
-  read.table(system.file("testdata", "testData_X.txt", package = "glmSlope"), 
+  read.table(system.file("testdata", "testData_X.txt", package = "glmSLOPE"), 
   header = FALSE,
   colClasses = "numeric")
 )
 y <- as.matrix(
-  read.table(system.file("testdata", "testData_y.txt", package = "glmSlope"), 
+  read.table(system.file("testdata", "testData_y.txt", package = "glmSLOPE"), 
   header = FALSE,
   colClasses = "numeric")
 )
 lambda <- as.matrix(
-  read.table(system.file("testdata", "testData_lambda.txt", package = "glmSlope"), 
+  read.table(system.file("testdata", "testData_lambda.txt", package = "glmSLOPE"), 
   header = FALSE, 
   colClasses = "numeric")
 )

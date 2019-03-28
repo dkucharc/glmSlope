@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sorted L1 parameters estimation solver for the generalized linear models — solve_slope • glmSlope</title>
+<title>Sorted L1 parameters estimation solver for the generalized linear models — solve_slope • glmSLOPE</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -73,7 +73,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">glmSlope</a>
+        <a class="navbar-link" href="../index.html">glmSLOPE</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
@@ -96,7 +96,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/dkucharc/glmSlope">
+  <a href="https://github.com/dkucharc/glmSLOPE">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -114,7 +114,7 @@ and \(|w|_{(i)}\) denotes the \(i\)-th largest entry in \(|w|\)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sorted L1 parameters estimation solver for the generalized linear models</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSlope/blob/master/R/solve_slope.R'><code>R/solve_slope.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/dkucharc/glmSLOPE/blob/master/R/solve_slope.R'><code>R/solve_slope.R</code></a></small>
     <div class="hidden name"><code>solve_slope.Rd</code></div>
     </div>
 
@@ -194,7 +194,69 @@ problems</p></td>
     <p>This optimization problem is convex and is solved using an
 accelerated proximal gradient descent method.</p>
     
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    <p>M. Bogdan et al. (2015) <em>SLOPE--Adaptive variable selection via convex optimization</em>, <a href='http://dx.doi.org/10.1214/15-AOAS842'>http://dx.doi.org/10.1214/15-AOAS842</a></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Linear model</span>
+<span class='co'># Test data</span>
+<span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.53766714</span>, <span class='fl'>1.833885</span>, -<span class='fl'>2.2588469</span>, <span class='fl'>0.86217332</span>, <span class='fl'>0.31876524</span>, -<span class='fl'>1.3076883</span>, -<span class='fl'>0.43359202</span>, <span class='fl'>0.34262447</span>, <span class='fl'>3.5783969</span>, <span class='fl'>2.769437</span>, -<span class='fl'>1.3498869</span>, <span class='fl'>3.0349235</span>, <span class='fl'>0.72540422</span>, -<span class='fl'>0.063054873</span>, <span class='fl'>0.7147429</span>, -<span class='fl'>0.20496606</span>, -<span class='fl'>0.12414435</span>, <span class='fl'>1.4896976</span>, <span class='fl'>1.4090345</span>, <span class='fl'>1.4171924</span>, <span class='fl'>0.67149713</span>, -<span class='fl'>1.2074869</span>, <span class='fl'>0.71723865</span>, <span class='fl'>1.6302353</span>, <span class='fl'>0.48889377</span>, <span class='fl'>1.034693</span>, <span class='fl'>0.72688513</span>, -<span class='fl'>0.30344092</span>, <span class='fl'>0.29387147</span>, -<span class='fl'>0.7872828</span>, <span class='fl'>0.88839563</span>, -<span class='fl'>1.1470701</span>, -<span class='fl'>1.0688705</span>, -<span class='fl'>0.80949869</span>, -<span class='fl'>2.9442842</span>, <span class='fl'>1.4383803</span>, <span class='fl'>0.32519054</span>, -<span class='fl'>0.75492832</span>, <span class='fl'>1.3702985</span>, -<span class='fl'>1.7115164</span>, -<span class='fl'>0.10224245</span>, -<span class='fl'>0.24144704</span>, <span class='fl'>0.31920674</span>, <span class='fl'>0.3128586</span>, -<span class='fl'>0.86487992</span>, -<span class='fl'>0.030051296</span>, -<span class='fl'>0.16487902</span>, <span class='fl'>0.62770729</span>, <span class='fl'>1.0932657</span>, <span class='fl'>1.109273</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='no'>X</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1.0734014</span>, -<span class='fl'>5.3021346</span>, <span class='fl'>1.096639</span>, -<span class='fl'>0.39124089</span>, -<span class='fl'>0.92884291</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='no'>y</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>1</span>)
+<span class='no'>y.bin</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, -<span class='fl'>1</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>, -<span class='fl'>1</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='no'>y.bin</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>1</span>)
+<span class='no'>lambda</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.9</span>, <span class='fl'>0.8</span>, <span class='fl'>0.7</span>, <span class='fl'>0.6</span>, <span class='fl'>0.5</span>, <span class='fl'>0.4</span>, <span class='fl'>0.3</span>, <span class='fl'>0.2</span>, <span class='fl'>0.1</span>)
+<span class='co'># Estimate parameters for linear model</span>
+<span class='fu'>solve_slope</span>(<span class='no'>X</span>, <span class='no'>y</span>, <span class='no'>lambda</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'linear'</span>)</div><div class='output co'>#&gt; $runtime
+#&gt; elapsed 
+#&gt;   0.018 
+#&gt; 
+#&gt; $objPrimal
+#&gt; [1] 1.962045
+#&gt; 
+#&gt; $objDual
+#&gt; [1] 1.962045
+#&gt; 
+#&gt; $infeas
+#&gt; [1] 2.384377e-07
+#&gt; 
+#&gt; $status
+#&gt; [1] 1
+#&gt; 
+#&gt; $w
+#&gt;  [1] -0.78334637  0.02170683 -1.13560148  0.00000000  0.02170683  0.00000000
+#&gt;  [7]  0.00000000  0.00000000  0.00000000  0.00000000
+#&gt; 
+#&gt; $L
+#&gt; [1] 42.68131
+#&gt; </div><div class='input'><span class='co'># Estimate parameters for logistic model</span>
+<span class='fu'>solve_slope</span>(<span class='no'>X</span>, <span class='no'>y.bin</span>, <span class='no'>lambda</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'logistic'</span>)</div><div class='output co'>#&gt; $runtime
+#&gt; elapsed 
+#&gt;   0.022 
+#&gt; 
+#&gt; $objPrimal
+#&gt; [1] 2.399044
+#&gt; 
+#&gt; $objDual
+#&gt; [1] 2.399043
+#&gt; 
+#&gt; $infeas
+#&gt; [1] 0
+#&gt; 
+#&gt; $status
+#&gt; [1] 1
+#&gt; 
+#&gt; $w
+#&gt;  [1] -0.5246241 -0.5246241 -0.2851559  0.0000000  0.0000000  0.0000000
+#&gt;  [7]  0.0000000  0.0000000  0.0000000  0.0000000
+#&gt; 
+#&gt; $L
+#&gt; [1] 21.34065
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,7 +266,11 @@ accelerated proximal gradient descent method.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-          </ul>
+
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

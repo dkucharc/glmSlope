@@ -1,11 +1,11 @@
-Package: glmSlope
+Package: glmSLOPE
 Type: Package
 Title: Sorted L1 Penalized Estimation (SLOPE) for the generalized linear models (GLM)
 Version: 0.1
-Date: 2019-02-20
+Date: 2019-03-28
 Author: Daniel Kucharczyk, Malgorzata Bogdan
 Maintainer: Daniel Kucharczyk <danielkucharczyk@yahoo.com>
-Description: Build a generalized linear model using adaptive variable selection based on SLOPE 
+Description: Estimate parameters of the generalized linear model using SLOPE 
 License: GPL (>= 3)
 Imports: 
     Rcpp
@@ -15,6 +15,6 @@ Suggests:
     testthat,
     knitr,
     rmarkdown
-URL: https://github.com/dkucharc/glmSlope
-BugReports: https://github.com/dkucharc/glmSlope/issues
+URL: https://github.com/dkucharc/glmSLOPE
+BugReports: https://github.com/dkucharc/glmSLOPE/issues
 VignetteBuilder: knitr

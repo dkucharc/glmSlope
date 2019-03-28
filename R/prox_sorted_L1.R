@@ -3,6 +3,7 @@
 #' @param lambda vectors of \eqn{\lambda}'s
 #' 
 #' @return The prox estimations for the sorted L1 norm
+#' @references M. Bogdan et al. (2015) \emph{SLOPE--Adaptive variable selection via convex optimization}, \url{http://dx.doi.org/10.1214/15-AOAS842} 
 #' @export
 prox_sorted_L1 <- function(x, lambda) {
   if (is.complex(x))

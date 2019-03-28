@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // prox_sorted_L1_C
 NumericVector prox_sorted_L1_C(NumericVector y, NumericVector lambda, IntegerVector order);
-RcppExport SEXP _glmSlope_prox_sorted_L1_C(SEXP ySEXP, SEXP lambdaSEXP, SEXP orderSEXP) {
+RcppExport SEXP _glmSLOPE_prox_sorted_L1_C(SEXP ySEXP, SEXP lambdaSEXP, SEXP orderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,11 +20,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_glmSlope_prox_sorted_L1_C", (DL_FUNC) &_glmSlope_prox_sorted_L1_C, 3},
+    {"_glmSLOPE_prox_sorted_L1_C", (DL_FUNC) &_glmSLOPE_prox_sorted_L1_C, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_glmSlope(DllInfo *dll) {
+RcppExport void R_init_glmSLOPE(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

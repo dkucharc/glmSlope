@@ -17,3 +17,6 @@ The prox estimations for the sorted L1 norm
 \description{
 Compute the prox for the sorted L1 norm
 }
+\references{
+M. Bogdan et al. (2015) \emph{SLOPE--Adaptive variable selection via convex optimization}, \url{http://dx.doi.org/10.1214/15-AOAS842}
+}

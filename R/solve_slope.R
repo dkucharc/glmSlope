@@ -32,10 +32,25 @@
 #'
 #' @details This optimization problem is convex and is solved using an
 #' accelerated proximal gradient descent method.
-#'
+#' @examples 
+#' # Linear model
+#' # Test data
+#' X <- c(0.53766714, 1.833885, -2.2588469, 0.86217332, 0.31876524, -1.3076883, -0.43359202, 0.34262447, 3.5783969, 2.769437, -1.3498869, 3.0349235, 0.72540422, -0.063054873, 0.7147429, -0.20496606, -0.12414435, 1.4896976, 1.4090345, 1.4171924, 0.67149713, -1.2074869, 0.71723865, 1.6302353, 0.48889377, 1.034693, 0.72688513, -0.30344092, 0.29387147, -0.7872828, 0.88839563, -1.1470701, -1.0688705, -0.80949869, -2.9442842, 1.4383803, 0.32519054, -0.75492832, 1.3702985, -1.7115164, -0.10224245, -0.24144704, 0.31920674, 0.3128586, -0.86487992, -0.030051296, -0.16487902, 0.62770729, 1.0932657, 1.109273)
+#' dim(X) <- c(5, 10)
+#' y <- c(1.0734014, -5.3021346, 1.096639, -0.39124089, -0.92884291)
+#' dim(y) <- c(5,1)
+#' y.bin <- c(1, -1, 1, -1, -1)
+#' dim(y.bin) <- c(5,1)
+#' lambda <- c(1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)
+#' # Estimate parameters for linear model
+#' solve_slope(X, y, lambda, model = 'linear')
+#' # Estimate parameters for logistic model
+#' solve_slope(X, y.bin, lambda, model = 'logistic')
+#' 
+#' @references M. Bogdan et al. (2015) \emph{SLOPE--Adaptive variable selection via convex optimization}, \url{http://dx.doi.org/10.1214/15-AOAS842} 
+#' 
 #' @export
 # Adapted from SLOPE_solver.R from the SLOPE: Sorted L1 Penalized Estimation (SLOPE) package
-
 solve_slope <- function(X, y, lambda, model = c("linear", "logistic"), initial = NULL, max_iter = 10000, grad_iter = 20, opt_iter = 1,
                         tol_infeas = 1e-6, tol_rel_gap = 1e-6) {
   model <- match.arg(model)

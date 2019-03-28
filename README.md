@@ -1,4 +1,4 @@
-# glmSlope - SLOPE for generalized linear models
+# glmSLOPE - SLOPE for generalized linear models
 
 [![Build Status](https://travis-ci.com/dkucharc/glmSlope.svg?branch=master)](https://travis-ci.com/dkucharc/glmSlope)
 

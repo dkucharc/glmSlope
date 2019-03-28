@@ -1,6 +1,6 @@
 # glmSLOPE - SLOPE for generalized linear models
 
-[![Build Status](https://travis-ci.com/dkucharc/glmSlope.svg?branch=master)](https://travis-ci.com/dkucharc/glmSlope)
+[![Build Status](https://travis-ci.com/dkucharc/glmSLOPE.svg?branch=master)](https://travis-ci.com/dkucharc/glmSLOPE)
 
 ### Instalation guide
 Currently the package is under heavy development. Therefore, it is recommended to install the package directly from the Github repository. This can achieved by using an `install_github` function provided by the `devtools` package. Namely,

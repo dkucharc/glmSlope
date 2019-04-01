@@ -6,7 +6,7 @@
 Currently the package is under heavy development. Therefore, it is recommended to install the package directly from the Github repository. This can achieved by using an `install_github` function provided by the `devtools` package. Namely,
 ```R
 library(devtools)
-install_github("dkucharc/glmSlope")
+install_github("dkucharc/glmSLOPE")
 ```
 
 ### Examples

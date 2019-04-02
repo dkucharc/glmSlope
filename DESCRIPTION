@@ -1,6 +1,6 @@
 Package: glmSLOPE
 Type: Package
-Title: Sorted L1 Penalized Estimation (SLOPE) for the generalized linear models (GLM)
+Title: Sorted L1 Penalized Estimation (SLOPE) for generalized linear models (GLM)
 Version: 0.1
 Date: 2019-03-28
 Author: Daniel Kucharczyk, Malgorzata Bogdan
